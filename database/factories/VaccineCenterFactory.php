@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\odel=VaccineCenter>
@@ -20,7 +19,7 @@ class VaccineCenterFactory extends Factory
         return [
             'name' => fake()->name(),
             'address' => fake()->address(),
-            'serve_users_per_day' => fake()->numberBetween(100,150),
+            'serve_users_per_day' => fake()->numberBetween(100, 150),
         ];
     }
 }

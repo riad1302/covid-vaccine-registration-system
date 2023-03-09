@@ -17,15 +17,26 @@
         </div>
 
         <div class="mt-4">
+            <x-input-label for="mobile_number" :value="__('Mobile Number')" />
+            <x-text-input id="mobile_number" class="block mt-1 w-full" type="number" name="mobile_number" :value="old('mobile_number')" required autocomplete="mobile_number" />
+            <x-input-error :messages="$errors->get('mobile_number')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
+            <x-input-label for="nid" :value="__('NID')" />
+            <x-text-input id="nid" class="block mt-1 w-full" type="number" name="nid" :value="old('nid')" required />
+            <x-input-error :messages="$errors->get('nid')" class="mt-2" />
+        </div>
+
+        <div class="mt-4">
             <x-input-label for="Vaccine Center" :value="__('Vaccine Center')" />
-            <select name="vaccine_center" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" required id="exampleFormControlSelect1">
+            <select name="vaccine_center_id" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm block mt-1 w-full" :value="old('vaccine_center_id')" required id="exampleFormControlSelect1">
                 <option value="">Select</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                @foreach($vaccine_centers as $center)
+                    <option value="{{$center->id}}">{{$center->name}}</option>
+                @endforeach
             </select>
-            <x-input-error :messages="$errors->get('vaccine_center')" class="mt-2" />
+            <x-input-error :messages="$errors->get('vaccine_center_id')" class="mt-2" />
         </div>
         <!-- Password -->
         <div class="mt-4">
