@@ -65,26 +65,28 @@ class RegisteredUserController extends Controller
 
     public function getVaccinationDate($user_info)
     {
-        $current_date = date('Y-m-d', strtotime('today'));
-        $lastVaccineInfo = VaccineDate::where('vaccine_center_id', $user_info->vaccine_center_id)->latest()->first();
-        if (! empty($lastVaccineInfo)) {
+        // Get the current date
+        $currentDate = date('Y-m-d', strtotime('today'));
+
+        // Get the user's latest vaccination information
+        $latestVaccineInfo = VaccineDate::where('vaccine_center_id', $user_info->vaccine_center_id)->latest()->first();
+        if (! empty($latestVaccineInfo)) {
+            // Get information about the vaccine center
             $vaccineCenterInfo = VaccineCenter::where('id', $user_info->vaccine_center_id)->first();
-            $vaccination_date = $lastVaccineInfo->vaccination_date;
-            $totalRegistered = VaccineDate::where(['vaccine_center_id' => $user_info->vaccine_center_id, 'vaccination_date' => $vaccination_date])->count();
-            if ($totalRegistered < $vaccineCenterInfo->serve_users_per_day) {
-                if (strtotime($current_date) === strtotime($vaccination_date)) {
-                    $date = $this->checkWeekDate($vaccination_date, true);
-                } else {
-                    $date = $this->checkWeekDate($vaccination_date, false);
-                }
+            $vaccinationDate = $latestVaccineInfo->vaccination_date;
+            $totalRegistered = VaccineDate::where(['vaccine_center_id' => $user_info->vaccine_center_id, 'vaccination_date' => $vaccinationDate])->count();
+            if ($totalRegistered >= $vaccineCenterInfo->serve_users_per_day) {
+                $date = $this->checkWeekDate($vaccinationDate, true);
+            } elseif (strtotime($currentDate) === strtotime($vaccinationDate)) {
+                $date = $this->checkWeekDate($vaccinationDate, true);
             } else {
-                $date = $this->checkWeekDate($vaccination_date, true);
+                $date = $this->checkWeekDate($vaccinationDate, false);
             }
         } else {
-            // dd($current_date);
-            $date = $this->checkWeekDate($current_date, true);
+            $date = $this->checkWeekDate($currentDate, true);
         }
 
+        // Return the assigned appointment date
         return $date;
     }
 
