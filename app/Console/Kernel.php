@@ -12,7 +12,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('notifyVaccinationDate:users')->dailyAt('9:00');
+        //test purpose
+        //$schedule->command('notifyVaccinationDate:users')->everyMinute();
+
     }
 
     /**

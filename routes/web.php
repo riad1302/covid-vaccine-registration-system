@@ -28,4 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/sendMail', [\App\Http\Controllers\VaccineController::class, 'sendMail']);
+
 require __DIR__.'/auth.php';

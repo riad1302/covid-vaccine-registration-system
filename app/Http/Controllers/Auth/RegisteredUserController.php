@@ -45,7 +45,6 @@ class RegisteredUserController extends Controller
             'nid' => $request->nid,
             'password' => Hash::make($request->password),
         ]);
-
         $vaccination_date = $this->getVaccinationDate($user);
         VaccineDate::create([
             'user_id' => $user->id,
@@ -55,12 +54,10 @@ class RegisteredUserController extends Controller
 
         DB::commit();
 
-        event(new Registered($user));
+        //event(new Registered($user));
 
         //Auth::login($user);
-        return redirect()->back()->with('success', 'registration successfuly');
-
-        //return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::Register)->with('success', 'registration successfuly');
     }
 
     public function getVaccinationDate($user_info)
