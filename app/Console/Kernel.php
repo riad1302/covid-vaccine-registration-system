@@ -15,7 +15,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('notifyVaccinationDate:users')->dailyAt('9:00');
         //test purpose
         //$schedule->command('notifyVaccinationDate:users')->everyMinute();
-
     }
 
     /**

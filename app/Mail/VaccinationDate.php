@@ -39,9 +39,9 @@ class VaccinationDate extends Mailable
     {
         return new Content(
             markdown: 'emails.vaccination_date',
-                 with: [
-                    'mailData' => $this->mailData,
-                 ],
+            with: [
+                'mailData' => $this->mailData,
+            ],
         );
     }
 

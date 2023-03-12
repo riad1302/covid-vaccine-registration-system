@@ -31,12 +31,13 @@ class NotifyVaccionationDateUsers extends Command
         $tomorrow = Carbon::tomorrow()->toDateString();
         //$tomorrow = Carbon::tomorrow()->addDay()->toDateString();
         //dd($tomorrow);
-        $userInfo = VaccineDate::with('user:id,name,email', 'vaccine_center:id,name,address')->whereDate('vaccination_date', $tomorrow)->get();
+        $userInfo = VaccineDate::with('user:id,name,email,mobile_number', 'vaccine_center:id,name,address')->whereDate('vaccination_date', $tomorrow)->get();
         if (! empty($userInfo)) {
             foreach ($userInfo as $info) {
                 $emailInfo = [
                     'email' => $info->user->email,
                     'name' => $info->user->name,
+                    'mobile_number' => $info->user->mobile_number,
                     'vaccine_center_name' => $info->vaccine_center->name,
                     'vaccine_center_address' => $info->vaccine_center->address,
                     'vaccination_date' => Carbon::parse($info->vaccination_date)->format('d F Y'),

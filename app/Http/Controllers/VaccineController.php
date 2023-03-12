@@ -3,17 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendMailJob;
-use App\Models\VaccineCenter;
 use App\Models\VaccineDate;
 use Carbon\Carbon;
 
 class VaccineController extends Controller
 {
-    public function list()
-    {
-        return VaccineCenter::select('id', 'name')->get();
-    }
-
     public function sendMail()
     {
         $tomorrow = Carbon::tomorrow()->addDay()->toDateString();
