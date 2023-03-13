@@ -18,12 +18,11 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        dd(VaccineCenter::factory(1)->id);
         return [
-            'vaccine_center_id' => VaccineCenter::factory()->create()->id,
+            'vaccine_center_id' => VaccineCenter::inRandomOrder()->first()->id,
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'nid' => fake()->unique()->randomDigit(10, 17),
+            'nid' => fake()->unique()->numerify('##########'),
             'mobile_number' => fake()->phoneNumber(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

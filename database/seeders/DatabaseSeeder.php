@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             VaccineCenterSeeder::class,
+            //UserSeeder::class,
         ]);
     }
 }
