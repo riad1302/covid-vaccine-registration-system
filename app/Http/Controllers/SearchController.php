@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Models\User;
 use App\Services\RedisService;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SearchController extends Controller
 {
@@ -15,12 +16,12 @@ class SearchController extends Controller
         $this->redisService = $redisService;
     }
 
-    public function search()
+    public function search(): View
     {
         return view('search');
     }
 
-    public function searchStatus(Request $request)
+    public function searchStatus(SearchRequest $request): View
     {
         if ($request->has('nid')) {
             $userInfo = $this->redisService->getVaccinationDate($request->nid, 'vaccination_date');

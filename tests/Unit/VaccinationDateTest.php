@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Services\VaccinationDateService;
+use App\Services\RegisterService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\TestCase;
 
@@ -23,7 +23,7 @@ class VaccinationDateTest extends TestCase
 //            'nid' => '1234567896',
 //        ];
 //        //dd($userInfo);
-//        $vaccinationDate = new VaccinationDateService();
+//        $vaccinationDate = new RegisterService();
 //        $vaccinationDate->getVaccinationDate($userInfo);
         $this->assertTrue(true);
     }
