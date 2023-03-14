@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\VaccineCenter;
 use App\Models\VaccineDate;
 use App\Providers\RouteServiceProvider;
+use App\Services\RedisService;
 use App\Services\VaccinationDateService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -21,9 +22,12 @@ class RegisteredUserController extends Controller
 {
     protected $vaccinationDateService;
 
-    public function __construct(VaccinationDateService $vaccinationDateService)
+    protected $redisService;
+
+    public function __construct(VaccinationDateService $vaccinationDateService, RedisService $redisService)
     {
         $this->vaccinationDateService = $vaccinationDateService;
+        $this->redisService = $redisService;
     }
 
     /**
@@ -59,7 +63,13 @@ class RegisteredUserController extends Controller
                 'vaccine_center_id' => $user->vaccine_center_id,
                 'vaccination_date' => $vaccination_date,
             ]);
-
+            $VaccineCenterInfo = VaccineCenter::where('id', $user->vaccine_center_id)->first();
+            $redis_data = [
+                'vaccine_center_name' => $VaccineCenterInfo->name,
+                'vaccine_center_address' => $VaccineCenterInfo->address,
+                'vaccine_date' => $vaccination_date,
+            ];
+            $this->redisService->addVaccinationDate($request->nid, 'vaccination_date', $redis_data);
             DB::commit();
             //event(new Registered($user));
             //Auth::login($user);
