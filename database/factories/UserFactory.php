@@ -18,6 +18,8 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        VaccineCenter::factory()->create();
+
         return [
             'vaccine_center_id' => VaccineCenter::inRandomOrder()->first()->id,
             'name' => fake()->name(),
