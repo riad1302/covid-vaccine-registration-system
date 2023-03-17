@@ -35,8 +35,8 @@ copy .env.example to .env
 
 use caching server redis. when user registration then user 
 vaccination date plus other some information store redis server.
-After successfully registration user search information get redis 
-server.
+After successfully registration then user search information serve
+redis server.
 
 ## Additional requirement of sending ‘SMS’ 
 
